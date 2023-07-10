@@ -1,4 +1,70 @@
 ---
+layout: distill
+title: "Cosmic Graphs: the Language of Large-Scale Structure"
+description: how much information is locked inside halo catalogues ?
+giscus_comments: true
+date: 2022-09-12 11:59:00-0400
+featured: true
+
+authors:
+  - name: T. Lucas Makinen
+    url: "https://en.wikipedia.org/wiki/Albert_Einstein"
+    affiliations:
+      name: Imperial College London
+
+bibliography: 2018-12-22-distill.bib
+
+# Optionally, you can add a table of contents to your post.
+# NOTES:
+#   - make sure that TOC names match the actual section names
+#     for hyperlinks within the post to work correctly.
+#   - we may want to automate TOC generation in the future using
+#     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
+toc:
+  # beginning: true
+  - name: Cosmology as an optimization problem
+    # if a section has subsections, you can add them as follows:
+    # subsections:
+    #    - name: "What is a graph ?"
+    #   - name: Example Child Subsection 2
+  - name: "Graphs: a Language for Large-Scale Structure"
+  # - name: "Extracting Information from graphs"
+  - name: "Graph Neural Networks"
+
+  - name: "Part I: varying graph connections and GNN complexity"
+
+  - name: "Part II: Incorporating Halo Mass"
+
+  - name: "Part III: A more realistic case: adding survey noise"
+
+       # - name: What is a graph ?
+  # - name: Footnotes
+  # - name: Code Blocks
+  # - name: Interactive Plots
+  # - name: Layouts
+  # - name: Other Typography?
+
+# Below is an example of injecting additional post-specific styles.
+# If you use this post as a template, delete this _styles block.
+# _styles: >
+#   .fake-img {
+#     background: #bbb;
+#     border: 1px solid rgba(0, 0, 0, 0.1);
+#     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+#     margin-bottom: 12px;
+#   }
+#   .fake-img p {
+#     font-family: monospace;
+#     color: white;
+#     text-align: left;
+#     margin: 12px 0;
+#     text-align: center;
+#     font-size: 16px;
+#   }
+
+---
+
+<!-- ---
 layout: post
 title: "Cosmic Graphs: the Language of Large-Scale Structure"
 date: 2022-09-12 11:59:00-0400
@@ -8,13 +74,15 @@ giscus_comments: true
 related_posts: false
 toc:
   beginning: true
----
+featured: true
+--- -->
+
 
 
  
 <figure class="align-center">
 <p align="center">
-  <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="dark matter graph" style="width:70%">
+  <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="dark matter graph" style="width:70%" zoomable=true>
       </p>
   <figcaption align = "center"> </figcaption>
 </figure>
@@ -57,15 +125,14 @@ Cosmology can be thought of as a multigenerational *optimization problem*, with 
 Since the 1960's, cosmologists have used $n$-point functions to describe structure formation. The image data collected by state-of-the-art surveys are often immediately compressed into (still very large) galaxy and cluster catalogues, whose pairwise (2-point), triplet (3-point), ... distances can be compared to quantify how clustered the universe is on different scales.
 
 
-<figure  class="center">
-  <p align="center">
-    <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/twopoint-pk.png" alt="Trulli" width="25%">
-  </p>
-  <figcaption align = "left">
-
-  <b> Figure 1 </b> - <a href="https://universe-review.ca/"> The two-point function </a> in real space can be related to the power spectrum in Fourier space. It only fully describes Gaussian field statistics. </figcaption>
-</figure>
-
+  <div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="/assets/img/cosmographs/graph_diagram.png" title="example image" class="img-fluid rounded z-depth-0" zoomable=true width=13% %}
+    </div>
+</div>
+<div class="caption">
+    <b> Figure 1 </b> - <a href="https://universe-review.ca/"> The two-point function </a> in real space can be related to the power spectrum in Fourier space. It only fully describes Gaussian field statistics.
+</div>
 
 2-point functions are easy to compute even for large data, but *don't capture all the information in highly non-gaussian fields*, like the LSS. 3-point functions reclaim a lot of this information, but are much more expensive to compute.
 
@@ -74,7 +141,7 @@ Since the 1960's, cosmologists have used $n$-point functions to describe structu
 
 <figure class="align-center">
 <p align="center">
-  <img src="https://media2.giphy.com/media/R2kXFYxbQNjkC5SxBV/giphy.gif?cid=790b7611ba802f5d69ce62b961e6fa17fbd9c61e5d697bf6&rid=giphy.gif" alt="dark matter graph" style="width:70%">
+  <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="dark matter graph" style="width:70%">
       </p>
   <figcaption align = "left"> <b> Figure 2 </b>- Large-Scale Structure as a Graph. Nodes (halos) trace clusters, while edges (halo separations) trace filaments and outline voids. Both sets of features can be annotated with extra information like mass or redshift. </figcaption>
 </figure>
@@ -184,7 +251,7 @@ We trunctate a catalogue to halos with a minumum mass $M_{\rm cut}$. We'll then 
 
 <figure class="align-center">
 <p align="center">
- <img src="https://media3.giphy.com/media/YYELjI6JQ7QMjRFDlB/giphy.gif?cid=790b761182588d309019643cf623a7ea39297ce10bee4db4&rid=giphy.gif" alt="drawing" style="width:70%"/>
+ <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="drawing" style="width:70%"/>
   <figcaption align = "center"> <b> Figure 3 </b> - Graphs are assembled by making a mass cut. The darker nodes and edges are heavier halos above $ M_{\rm cut} = 1.5  \times 10^{15} M_{\rm sun} $, while the lighter graph is smaller-scale structure at $M > 1.1 \times10^{15} M_{\rm sun}$. </figcaption>
   </p>
 </figure>
@@ -228,6 +295,7 @@ $$
 
 
 # Extracting Information from graphs
+
 But how do we extract information from a set of edges and nodes whose size changes ? Enter graph Information Maximising Neural Networks (gIMNNs) ! Remember how cosmology can be thought of as an optimization problem to find informative statistics ? IMNNs do precisely that, from simulations !
 
 <figure>
@@ -330,7 +398,7 @@ We built the IMNN and simulation scheme in the `Jax` framework. For detailed cod
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/info-extraction-cartoon.png" title="example image" class="img-fluid rounded z-depth-0" %}
+        {% include figure.html path="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/info-extraction-cartoon.png" title="example image" class="img-fluid rounded z-depth-0" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -365,7 +433,7 @@ The plot above is what we call a "Fisher forecast" for cosmological parameters. 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F-withmass-intfsigma.png" title="example image" class="img-fluid rounded z-depth-0" %}
+        {% include figure.html path="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F-withmass-intfsigma.png" title="example image" class="img-fluid rounded z-depth-0" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -453,7 +521,7 @@ mass estimates. We can think of this as a likelihood for a halo finder operating
 
 <figure class="align-center">
 <p align="center">
- <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/masscut.png" alt="drawing" width="65%" />
+ <img src="/assets/img/cosmographs/masscut.png" alt="drawing" width="65%" />
   <figcaption align = "left"> <b> Figure 10 </b> - Mass distribution after added noise,  $\sigma_{\rm noise}=0.2 M_{\rm cut}$ (black) and simulated halo finder cuts (teal) for a single fiducial simulation for masses larger than $1.1 \times 10^{15}\ M_\odot$. The orange dashed lines indicates the minimum mass considered by the ``survey'' cutoff, $M_{\rm cut}=1.5\times 10^{15}\ M_\odot$.  </figcaption>
   </p>
 </figure>

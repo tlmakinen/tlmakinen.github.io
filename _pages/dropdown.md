@@ -2,7 +2,7 @@
 layout: page
 title: 
 nav: true
-nav_order: 6
+nav_order: 23
 dropdown: true
 children: 
     - title: publications
@@ -13,4 +13,7 @@ children:
     - title: divider
     - title: teaching
       permalink: /teaching/
+    - title: divider
+    - title: cv
+      permalink: /cv/
 ---
