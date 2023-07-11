@@ -527,16 +527,39 @@ mass estimates. We can think of this as a likelihood for a halo finder operating
 </figure>
 
 
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="/assets/img/cosmographs/masscut.png" title="masscut histogram" class="img-fluid rounded z-depth-0" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+     <b> Figure 10 </b> -  Mass distribution after added noise,  $\sigma_{\rm noise}=0.2 M_{\rm cut}$ (black) and simulated halo finder cuts (teal) for a single fiducial simulation for masses larger than $1.1 \times 10^{15}\ M_\odot$. The orange dashed lines indicates the minimum mass considered by the ``survey'' cutoff, $M_{\rm cut}=1.5\times 10^{15}\ M_\odot$.
+</div>
+
+
 We can incorporate this forward model into the gIMNN training scheme such that the network becomes hardened to both the noisy halos and changing catalogue size.
 
 ## Training Curves
 
 <figure class="align-center">
 <p align="center">
- <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/noisetraining.png" alt="drawing" width="65%/>
+  <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/noisetraining.png"  alt="drawing" width="65%" />
+  
   <figcaption align = "left"> <b> Figure 11 </b> - Validation curves for noisy masses. Smaller noise variance (darker curves) results in smaller per-epoch variance in $\det F$ and slightly more information extraction. Information leakage occurs with higher noise variance since smaller scales are poorly resolved and trimmed from the catalogue.  </figcaption>
   </p>
 </figure>
+
+<!-- new img below -->
+
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="/Users/lucas/repositories/newwebsite/assets/img/cosmographs/noisetraining.png" title="noise training curves" class="img-fluid rounded z-depth-0" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+     <b> Figure 11 </b> - Validation curves for noisy masses. Smaller noise variance (darker curves) results in smaller per-epoch variance in $\det F$ and slightly more information extraction. Information leakage occurs with higher noise variance since smaller scales are poorly resolved and trimmed from the catalogue.
+</div>
 
 In the above plot we see the effect of increasing the noise amplitude parameter $A_{\rm noise}$ on IMNN training. Intuitively we'd expect the Fisher information estimate to fluctuate more as the lowest-mass halos in the survey become dominated by noise. More noise also means that the catalogue data becomes *less informative about the cosmology*, so the Fisher information drops slightly for the higher-noise cases. We term this *information leakage*, resulting in higher uncertainty contours in the Fisher plot:
 

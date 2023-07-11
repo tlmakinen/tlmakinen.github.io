@@ -2,7 +2,7 @@
 layout: about
 title:
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='https://www.imperial.ac.uk/astrophysics/centre-for-inference-and-cosmology/'>Imperial Centre for Inference & Cosmology</a>
 
 profile:
   align: right
