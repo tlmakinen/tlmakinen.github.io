@@ -264,7 +264,7 @@ One of the goals of this study is to show how graphs can be made more ornate and
 
 <figure class="center">
   <p align="center">
-  <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/inv-vs-noninv.png" alt="drawing" width="65%" />
+  <img src="/assets/img/cosmographs/inv-vs-noninv.png" alt="drawing" width="65%" />
   <figcaption align = "left"> <b> Figure 4 </b> - Non-invariant graphs are restricted to grid labels on their nodes, while invariant graph properties remain unchanged under rotations and translations.  </figcaption>
   </p>
 </figure>
