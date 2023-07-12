@@ -2,7 +2,7 @@
 layout: about
 title:
 permalink: /
-subtitle: <a href='https://www.imperial.ac.uk/astrophysics/centre-for-inference-and-cosmology/'>Imperial Centre for Inference & Cosmology</a>
+subtitle: <a href='https://www.imperial.ac.uk/astrophysics/centre-for-inference-and-cosmology/'>Imperial Centre for Inference & Cosmology</a>, <a href='https://www.imperial.ac.uk/astrophysics/centre-for-inference-and-cosmology/'>Institut d'Astrophysique de Paris</a>
 
 profile:
   align: right
