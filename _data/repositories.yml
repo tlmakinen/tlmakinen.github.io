@@ -1,12 +1,8 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - tlmakinen
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - tlmakinen/kosmo-kompress
+  - tlmakinen/cosmicGraphs
+  - tlmakinen/deep21
+
