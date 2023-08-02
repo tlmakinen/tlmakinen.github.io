@@ -5,6 +5,7 @@ description: how much information is locked inside halo catalogues?
 giscus_comments: true
 date: 2022-09-12 11:59:00-0400
 featured: true
+tags: cosmology code methods
 
 authors:
   - name: T. Lucas Makinen
