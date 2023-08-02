@@ -1,7 +1,7 @@
 ---
 layout: distill
 title: "Cosmic Graphs: the Language of Large-Scale Structure"
-description: how much information is locked inside halo catalogues ?
+description: how much information is locked inside halo catalogues?
 giscus_comments: true
 date: 2022-09-12 11:59:00-0400
 featured: true
@@ -36,6 +36,8 @@ toc:
   - name: "Part II: Incorporating Halo Mass"
 
   - name: "Part III: A more realistic case: adding survey noise"
+
+  - name: "Closing Thoughts"
 
        # - name: What is a graph ?
   # - name: Footnotes
@@ -110,13 +112,13 @@ But how do we go about linking this data to theory ? In this project, my team an
 Large-Scale Structure is *large*. The image below shows a piece of a simulation of the cosmic web ($$ 125\ {\rm Mpc} = 125 \times 10^6 $$ light years). This massive expanse translates into a lot of data for cosmologists to work with.
 For context, the European Satellite [Euclid](https://www.esa.int/Science_Exploration/Space_Science/Euclid_overview#:~:text=Mission%20objectives%3A,a%20third%20of%20the%20sky.) will observe *billions* of galaxies and their properties in an effort to trace the LSS and the dark matter halos forming the cosmic web. Ideally, we'd use the full [field-level image of this structure](https://arxiv.org/abs/2107.07405), but this can be challenging when we have billions of pixels.
 
-<figure style="width: 60%" class="align-center">
-<p align="center">
-  <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/cosmicvoid.jpeg" alt="drawing"/>
-  <figcaption align = "left"> 
-  Simulation of cosmic structure. $$1 {\rm Mpc}/h = 3.2 \times 10^6 $$ light years. Credit: <a href="https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/"> Millenium Simulation Project </a> </figcaption>
-  </p>
+<figure style="width: 60%" class="center">
+  <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/cosmicvoid.jpeg" alt="drawing" align="center"/>
+  <div class="caption">
+  Simulation of cosmic structure. Credit: <a href="https://wwwmpa.mpa-garching.mpg.de/galform/virgo/millennium/"> Millenium Simulation Project. </a>
+   </div>
 </figure>
+
 
 Cosmology can be thought of as a multigenerational *optimization problem*, with the objective being:
 >What statistic (what number(s)) best links LSS data to theory ?
@@ -131,7 +133,7 @@ Since the 1960's, cosmologists have used $$n$$-point functions to describe struc
   <img src="/assets/img/cosmographs/twopoint-pk.png" alt="" style="width:35%" align="center"  >
   </p>
   </a>
-  <figcaption align="center">  <b> Figure 1 </b> - <a href="https://universe-review.ca/"> The two-point function </a> in real space can be related to the power spectrum in Fourier space. It only fully describes Gaussian field statistics. </figcaption>
+  <div class="caption">  <b> Figure 1 </b> - <a href="https://universe-review.ca/"> The two-point function </a> in real space can be related to the power spectrum in Fourier space. It only fully describes Gaussian field statistics. </div>
 </figure>
 
 2-point functions are easy to compute even for large data, but *don't capture all the information in highly non-gaussian fields*, like the LSS. 3-point functions reclaim a lot of this information, but are much more expensive to compute.
@@ -143,7 +145,7 @@ Since the 1960's, cosmologists have used $$n$$-point functions to describe struc
 <p align="center">
   <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="dark matter graph" style="width:70%">
       </p>
-  <figcaption align = "left"> <b> Figure 2 </b>- Large-Scale Structure as a Graph. Nodes (halos) trace clusters, while edges (halo separations) trace filaments and outline voids. Both sets of features can be annotated with extra information like mass or redshift. </figcaption>
+  <div class = "caption"> <b> Figure 2 </b>- Large-Scale Structure as a Graph. Nodes (halos) trace clusters, while edges (halo separations) trace filaments and outline voids. Both sets of features can be annotated with extra information like mass or redshift. </div>
 </figure>
 
 Graphs provide a natural language with which to describe the cosmic web. Dark matter halos are attributed
@@ -173,7 +175,7 @@ of node and edge labels, unlike correlation functions.
   <p align="center">
     <img src="https://raw.githubusercontent.com/tlmakinen/cosmicGraphs/master/tutorial/peebles.jpeg" alt="jim peebles" style="width:20%">
       </p>
-  <figcaption align="center"> <a href="https://www.nobelprize.org/prizes/physics/2019/peebles/facts/"> Jim Peebles </a>, 2019 Nobel Prize Winner. </figcaption>
+  <div class="caption"> <a href="https://www.nobelprize.org/prizes/physics/2019/peebles/facts/"> Jim Peebles </a>, 2019 Nobel Prize Winner. </div>
 </figure>
 
 <!-- <figure>
@@ -202,8 +204,13 @@ This language is a lot more general -- Ben even thought Jim Peebles might have d
   <img src="/assets/img/cosmographs/graph_diagram.png" alt="" style="width:35%" align="center"  >
   </p>
   </a>
-  <figcaption align="center"> Graph diagram.</figcaption>
+  <div class="caption">
+      Graph Diagram.
+  </div>
 </figure>
+
+
+
 
 
 <!-- [![styled-image](/assets/img/pixel_tracker_logo_80px.png "This is some hover text"){: .align-center style="width: 10%;"}](/assets/img/pixel_tracker_logo_80px.png "Title shown in gallery view")
@@ -252,7 +259,7 @@ We trunctate a catalogue to halos with a minumum mass $$M_{\rm cut}$$. We'll the
 <figure class="align-center">
 <p align="center">
  <img src="https://media4.giphy.com/media/b8ICuMdjg37vQNjwTA/giphy.gif?cid=790b7611da6738a8551bc2d92f2eb821b6d853092aa22ca9&rid=giphy.gif" alt="drawing" style="width:70%"/>
-  <figcaption align = "center"> <b> Figure 3 </b> - Graphs are assembled by making a mass cut. The darker nodes and edges are heavier halos above $$ M_{\rm cut} = 1.5  \times 10^{15} M_{\rm sun} $$, while the lighter graph is smaller-scale structure at $$M > 1.1 \times10^{15} M_{\rm sun}$$. </figcaption>
+  <div class = "caption"> <b> Figure 3 </b> - Graphs are assembled by making a mass cut. The darker nodes and edges are heavier halos above $$ M_{\rm cut} = 1.5  \times 10^{15} M_{\rm sun} $$, while the lighter graph is smaller-scale structure at $$M > 1.1 \times10^{15} M_{\rm sun}$$. </div>
   </p>
 </figure>
 
@@ -265,7 +272,7 @@ One of the goals of this study is to show how graphs can be made more ornate and
 <figure class="center">
   <p align="center">
   <img src="/assets/img/cosmographs/inv-vs-noninv.png" alt="drawing" width="65%" />
-  <figcaption align = "left"> <b> Figure 4 </b> - Non-invariant graphs are restricted to grid labels on their nodes, while invariant graph properties remain unchanged under rotations and translations.  </figcaption>
+  <div class = "caption"> <b> Figure 4 </b> - Non-invariant graphs are restricted to grid labels on their nodes, while invariant graph properties remain unchanged under rotations and translations.  </div>
   </p>
 </figure>
 
@@ -302,7 +309,7 @@ But how do we extract information from a set of edges and nodes whose size chang
 <p align="center">
  <img src="/assets/img/cosmographs/gIMNN-diagram-white-background.png" alt="drawing" style="width:100%"/>
       </p>
-  <figcaption align = "left"> <b> Figure 5 </b> - IMNN scheme. Cosmic graphs are assembled from Dark Matter simulations, subjected to "survey" noise, and then extracted using graph neural networks to produce global summaries. The derivatives and covariance of these summaries are computed to calculate the Fisher information, which we train the networks to maximise.  </figcaption>
+  <div class = "caption"> <b> Figure 5 </b> - IMNN scheme. Cosmic graphs are assembled from Dark Matter simulations, subjected to "survey" noise, and then extracted using graph neural networks to produce global summaries. The derivatives and covariance of these summaries are computed to calculate the Fisher information, which we train the networks to maximise.  </div>
 </figure>
 
 
@@ -395,7 +402,7 @@ We built the IMNN and simulation scheme in the `Jax` framework. For detailed cod
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/info-extraction-cartoon.png" title="example image" class="img-fluid rounded z-depth-0" zoomable=true %}
+        {% include figure.html path="assets/img/cosmographs/info-extraction-cartoon.png" title="example image" class="img-fluid rounded z-depth-0" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -431,7 +438,7 @@ The plot above is what we call a "Fisher forecast" for cosmological parameters. 
 <figure class="align-center">
 <p align="center">
  <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F-withmass-intfsigma.png"  alt="drawing" width="65%" />
-  <figcaption align = "center"> <b> Figure 8 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </figcaption>
+  <div class = "caption"> <b> Figure 8 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </div>
 </p>
 </figure>
 
@@ -445,7 +452,7 @@ If you take an even closer look, you'll see that the Fisher ellipse produced by 
 <figure class="align-center">
   <p align="center">
   <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/fsigma-dndms-comp.png" alt="drawing" width="65%" />
-    <figcaption align = "center"> <b> Figure 9 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </figcaption>
+    <div class = "caption"> <b> Figure 9 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </div>
     </p>
 </figure>
 
@@ -515,7 +522,7 @@ mass estimates. We can think of this as a likelihood for a halo finder operating
 <figure class="align-center">
 <p align="center">
  <img src="/assets/img/cosmographs/masscut.png" alt="drawing" width="65%" />
-  <figcaption align = "left"> <b> Figure 10 </b> - Mass distribution after added noise,  $$\sigma_{\rm noise}=0.2 M_{\rm cut}$$ (black) and simulated halo finder cuts (teal) for a single fiducial simulation for masses larger than $$1.1 \times 10^{15}\ M_\odot$$. The orange dashed lines indicates the minimum mass considered by the ``survey'' cutoff, $$M_{\rm cut}=1.5\times 10^{15}\ M_\odot$$.  </figcaption>
+  <div class = "caption"> <b> Figure 10 </b> - Mass distribution after added noise,  $\sigma_{\rm noise}=0.2 M_{\rm cut}$ (black) and simulated halo finder cuts (teal) for a single fiducial simulation for masses larger than $1.1 \times 10^{15}\ M_\odot$. The orange dashed lines indicates the minimum mass considered by the ``survey'' cutoff, $M_{\rm cut}=1.5\times 10^{15}\ M_\odot$.  </div>
   </p>
 </figure>
 
@@ -528,7 +535,7 @@ We can incorporate this forward model into the gIMNN training scheme such that t
 <p align="center">
   <img src="/assets/img/cosmographs/noisetraining.png"  alt="drawing" width="65%" />
   
-  <figcaption align = "left"> <b> Figure 11 </b> - Validation curves for noisy masses. Smaller noise variance (darker curves) results in smaller per-epoch variance in $\det F$ and slightly more information extraction. Information leakage occurs with higher noise variance since smaller scales are poorly resolved and trimmed from the catalogue.  </figcaption>
+  <div class = "caption"> <b> Figure 11 </b> - Validation curves for noisy masses. Smaller noise variance (darker curves) results in smaller per-epoch variance in $\det F$ and slightly more information extraction. Information leakage occurs with higher noise variance since smaller scales are poorly resolved and trimmed from the catalogue.  </div>
   </p>
 </figure>
 
@@ -537,7 +544,7 @@ In the above plot we see the effect of increasing the noise amplitude parameter 
 <figure class="align-center">
 <p align="center">
  <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F_vary_mass_intfsigma.png" alt="drawing" width="65%" />
-  <figcaption align = "left"> <b> Figure 12 </b> - Fisher constraints for different noise models, plotted over lines of the Press-Schechter halo mass function.  </figcaption>
+  <div class = "caption"> <b> Figure 12 </b> - Fisher constraints for different noise models, plotted over lines of the Press-Schechter halo mass function.  </div>
   </p>
 </figure>
 
