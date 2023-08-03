@@ -438,7 +438,7 @@ The plot above is what we call a "Fisher forecast" for cosmological parameters. 
 
 <figure class="align-center">
 <p align="center">
- <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F-withmass-intfsigma.png"  alt="drawing" width="65%" />
+ <img src="/assets/img/cosmographs/F-withmass-intfsigma.png"  alt="drawing" width="65%" />
   <div class = "caption"> <b> Figure 8 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </div>
 </p>
 </figure>
@@ -452,7 +452,7 @@ If you take an even closer look, you'll see that the Fisher ellipse produced by 
 
 <figure class="align-center">
   <p align="center">
-  <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/fsigma-dndms-comp.png" alt="drawing" width="65%" />
+  <img src="/assets/img/cosmographs/fsigma-dndms-comp.png" alt="drawing" width="65%" />
     <div class = "caption"> <b> Figure 9 </b> - Fisher diagram comparing gIMNN extraction to halo mass and 2-pt correlation functions.  </div>
     </p>
 </figure>
@@ -544,7 +544,7 @@ In the above plot we see the effect of increasing the noise amplitude parameter 
 
 <figure class="align-center">
 <p align="center">
- <img src="https://raw.githubusercontent.com/tlmakinen/tlmakinen.github.io/master/assets/cosmographs/F_vary_mass_intfsigma.png" alt="drawing" width="65%" />
+ <img src="/assets/img/cosmographs/F_vary_mass_intfsigma.png" alt="drawing" width="65%" />
   <div class = "caption"> <b> Figure 12 </b> - Fisher constraints for different noise models, plotted over lines of the Press-Schechter halo mass function.  </div>
   </p>
 </figure>
