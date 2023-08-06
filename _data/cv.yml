@@ -14,19 +14,18 @@
     - title: PhD
       institution: Imperial College London
       year: 2024
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
+      # description:
+      #   - Description 1.
+      #   - Description 2.
+      #   - title: Description 3.
+      #     contents:
+      #       - Sub-description 1.
+      #       - Sub-description 2.
     - title: Master's
       institution: Sorbonne University & Institut d'Astrophysique, Paris
       year: 2021
       description:
-        - Description 1.
-        - Description 2.
+
     - title: B.A. Astrophysics
       institution: Princeton University, United States
       year: 2021
