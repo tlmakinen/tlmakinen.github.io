@@ -39,19 +39,19 @@
     - title: PhD Candidate
       institution: Department of Physics, Imperial College London
       year: 2021 - 2024
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
+      # description:
+      #   - Description 1.
+      #   - Description 2.
+      #   - title: Description 3.
+      #     contents:
+      #       - Sub-description 1.
+      #       - Sub-description 2.
     - title: Predoctoral Researcher
       institution: Center for Astrophysics | Harvard & Smithsonian
       year: 2021-2022
       description:
-        - Description 1.
-        - Description 2.
+        # - Description 1.
+        # - Description 2.
 
     - title: Postgraduate Researcher
       institution: Scuola Internazionale di Studi Avanzati, Trieste Italy
