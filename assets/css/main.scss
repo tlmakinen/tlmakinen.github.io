@@ -13,3 +13,22 @@ $max-content-width: {{ site.max_width }};
   "base",
   "distill"
 ;
+
+// Custom Hershey font for about page only
+// @font-face {
+//   font-family: 'HersheySimplex';
+//   src: url('https://raw.githubusercontent.com/yangcht/Hershey_font_TTF/main/ttf/AVHersheySimplexLight.ttf');
+// }
+// @font-face {
+//   font-family: 'HersheyBold';
+//   src: url('https://raw.githubusercontent.com/yangcht/Hershey_font_TTF/main/ttf/AVHersheySimplexMedium.ttf');
+// }
+
+// .about-page {
+//   font-family: 'HersheyBold', sans-serif;
+  
+//   * {
+//     font-family: 'HersheyBold', sans-serif;
+//   }
+// }
+
