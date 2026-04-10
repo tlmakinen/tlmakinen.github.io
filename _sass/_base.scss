@@ -474,16 +474,16 @@ footer.sticky-bottom {
       color: var(--global-text-color);
 
       &:hover {
-        color: $black-color;
+        color: var(--global-theme-color);
       }
     }
 
     &.active .page-link {
-      color: $white-color;
-      background-color: var(--global-theme-color);
+      color: var(--global-fill-fg);
+      background-color: var(--global-fill-bg);
 
       &:hover {
-        background-color: var(--global-theme-color);
+        background-color: var(--global-fill-bg);
       }
     }
   }
@@ -596,12 +596,12 @@ footer.sticky-bottom {
 
         abbr {
           display: inline-block;
-          background-color: var(--global-theme-color);
+          background-color: var(--global-fill-bg);
           padding-left: 1rem;
           padding-right: 1rem;
 
           a {
-            color: white;
+            color: var(--global-fill-fg);
 
             &:hover {
               text-decoration: none;

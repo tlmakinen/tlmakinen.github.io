@@ -13,7 +13,7 @@
   contents:
     - title: PhD
       institution: Imperial College London
-      year: 2024
+      year: 2025
       # description:
       #   - Description 1.
       #   - Description 2.
@@ -28,7 +28,7 @@
 
     - title: B.A. Astrophysics
       institution: Princeton University, United States
-      year: 2021
+      year: 2020
       description:
         - "Minors: Applied & Computational Mathematics, Statistics & Machine Learning"
         - Royal College of Music Exchange Programme (2018-19)
@@ -36,6 +36,10 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Physics-AI Fellow
+      institution: Department of Applied Mathematics and Theoretical Physics, University of Cambridge
+      year: 2025 - present
+
     - title: PhD Candidate
       institution: Department of Physics, Imperial College London
       year: 2021 - 2024
@@ -97,6 +101,12 @@
 - title: Honors and Awards
   type: time_table
   contents:
+    - year: 2025
+      items: 
+        - Imperial College London Winton Captial Prize for best PhD thesis in Physics using computational methods 
+    - year: 2023
+      items: 
+        - Imperial College Astrophysics Warner Postgraduate Prize
     - year: 2021
       items: 
         - Imperial College London President's Scholarship
@@ -112,25 +122,25 @@
       items:
         - Office of International Programs Fellowship
 
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Large Scale Structure Formation.
-      items: 
-        - How did large-scale structures form from initial conditions? What is the nature of Dark Matter?
-        - What cosmological information is trapped in structure?
-    - title: Statistical Analysis.
-      items:
-        - How can we compress massive datasets for robust statistical analysis
-        - How can we optimize expensive simulations and sampling?
+# - title: Academic Interests
+#   type: nested_list
+#   contents:
+#     - title: Large Scale Structure Formation.
+#       items: 
+#         - How did large-scale structures form from initial conditions? What is the nature of Dark Matter?
+#         - What cosmological information is trapped in structure?
+#     - title: Statistical Analysis.
+#       items:
+#         - How can we compress massive datasets for robust statistical analysis
+#         - How can we optimize expensive simulations and sampling?
 
 
-    - title: Deep Learning for Physics.
-      items:
-        - How can we use an entropy metric to guide hierarchical, graph-based learning?
-        - Where do neural methods fail, and why?
+#     - title: Deep Learning for Physics.
+#       items:
+#         - How can we use an entropy metric to guide hierarchical, graph-based learning?
+#         - Where do neural methods fail, and why?
 
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Jazz & Classical Trumpet, languages & linguistics
+# - title: Other Interests
+#   type: list
+#   contents:
+#     - <u>Hobbies:</u> Jazz & Classical Trumpet, languages & linguistics

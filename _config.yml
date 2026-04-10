@@ -210,6 +210,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  # Demo notebook only; jekyll-jupyter-notebook requires `jupyter` on PATH (see .github/workflows/deploy.yml)
+  # - assets/jupyter
 keep_files:
   - CNAME
   - .nojekyll

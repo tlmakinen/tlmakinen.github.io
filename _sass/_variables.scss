@@ -31,6 +31,13 @@ $grey-900:            #212529;
 
 $white-color: #ffffff !default;
 $black-color: #000000 !default;
+// Light theme: page background (warmer than pure white)
+// Pure white: #ffffff
+// default: #f7f6f2
+// Cooler: #f5f6f8
+// Warmer: #f9f7f2
+// More paper-like: #faf8f3
+$bg-color-light: #faf8f3 !default;
 
 
 // Theme colors
