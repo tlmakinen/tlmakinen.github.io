@@ -310,7 +310,7 @@ blockquote {
   text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 2rem; // was 4rem; icon size scales with this
 
     a {
       i::before {
