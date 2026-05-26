@@ -8,6 +8,9 @@
         {%- if site.last_updated -%}
         Last updated: {{ "now" | date: '%B %d, %Y' }}.
         {%- endif %}
+        {%- if site.substack_url -%}
+        &nbsp; &middot; &nbsp; <a href="{{ site.substack_url }}" target="_blank" title="Subscribe on Substack"><i class="fas fa-newspaper"></i> subscribe</a>
+        {%- endif %}
       </div>
     </footer>
     {%- else -%}
@@ -19,6 +22,9 @@
         {%- endif -%}
         {%- if site.last_updated -%}
         Last updated: {{ "now" | date: '%B %d, %Y' }}.
+        {%- endif %}
+        {%- if site.substack_url -%}
+        &nbsp; &middot; &nbsp; <a href="{{ site.substack_url }}" target="_blank" title="Subscribe on Substack"><i class="fas fa-newspaper"></i> subscribe</a>
         {%- endif %}
       </div>
     </footer>

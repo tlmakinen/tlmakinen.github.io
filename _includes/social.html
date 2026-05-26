@@ -46,6 +46,9 @@
             {%- if site.medium_username -%}
             <a href="https://medium.com/@{{ site.medium_username }}" title="Medium"><i class="fab fa-medium"></i></a>
             {% endif %}
+            {%- if site.substack_url -%}
+            <a href="{{ site.substack_url }}" title="Substack"><i class="fas fa-newspaper"></i></a>
+            {% endif %}
             {%- if site.quora_username -%}
             <a href="https://www.quora.com/profile/{{ site.quora_username }}" title="Quora"><i class="fab fa-quora"></i></a>
             {% endif %}
