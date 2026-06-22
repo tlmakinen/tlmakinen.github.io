@@ -2,12 +2,9 @@ function makeDjInspiralDeckAnimation({
     selector = ".dj-inspiral-deck",
     duration = 6.0,
     fps = 30,
-    trailLength = 45,
-    designWidth = 860,
-    designHeight = 688
+    trailLength = 45
   } = {}) {
     const containers = document.querySelectorAll(selector);
-    const aspectRatio = designWidth / designHeight;
   
     containers.forEach((container) => {
       const canvas = container.querySelector("canvas");
@@ -23,20 +20,12 @@ function makeDjInspiralDeckAnimation({
       }
   
       function resizeCanvas() {
-        const containerWidth = container.clientWidth;
-        const containerHeight = containerWidth / aspectRatio;
-
-        container.style.height = `${containerHeight}px`;
-
+        const rect = canvas.getBoundingClientRect();
         const dpr = window.devicePixelRatio || 1;
-        const width = Math.max(1, containerWidth);
-        const height = Math.max(1, containerHeight);
-
-        canvas.width = Math.round(width * dpr);
-        canvas.height = Math.round(height * dpr);
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-
+  
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+  
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
   
@@ -64,113 +53,83 @@ function makeDjInspiralDeckAnimation({
         ctx.closePath();
       }
   
-      function drawText(text, x, y, options = {}) {
-        const {
-          size = 12,
-          align = "left",
-          baseline = "top",
-          alpha = 1
-        } = options;
-  
-        ctx.save();
-        ctx.fillStyle = getForegroundColor();
-        ctx.globalAlpha = alpha;
-        ctx.font =
-          `${size}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, ` +
-          `"Liberation Mono", "Courier New", monospace`;
-        ctx.textAlign = align;
-        ctx.textBaseline = baseline;
-        ctx.fillText(text, x, y);
-        ctx.restore();
+      function rotatePoint(x, y, angle) {
+        const ca = Math.cos(angle);
+        const sa = Math.sin(angle);
+        return [x * ca - y * sa, x * sa + y * ca];
       }
   
-      function drawCircle(x, y, r, { fillAlpha = 0, strokeAlpha = 1, lineWidth = 1.5 } = {}) {
-        const fg = getForegroundColor();
-  
+      function drawCircle(x, y, r, fg, fillAlpha = 0, strokeAlpha = 1, lineWidth = 1.5) {
         ctx.save();
-  
         if (fillAlpha > 0) {
-          ctx.fillStyle = fg;
           ctx.globalAlpha = fillAlpha;
+          ctx.fillStyle = fg;
           ctx.beginPath();
           ctx.arc(x, y, r, 0, 2 * Math.PI);
           ctx.fill();
         }
-  
-        ctx.strokeStyle = fg;
         ctx.globalAlpha = strokeAlpha;
+        ctx.strokeStyle = fg;
         ctx.lineWidth = lineWidth;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);
         ctx.stroke();
-  
         ctx.restore();
       }
   
-      function drawKnob(cx, cy, r) {
-        const fg = getForegroundColor();
-  
+      function drawKnob(cx, cy, r, fg) {
         ctx.save();
-        ctx.fillStyle = fg;
         ctx.globalAlpha = 0.08;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.restore();
-  
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.75;
-        ctx.lineWidth = 1.8;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-        ctx.stroke();
-  
-        ctx.globalAlpha = 0.22;
-        ctx.beginPath();
-        ctx.arc(cx - r * 0.22, cy - r * 0.28, r * 0.42, 0, 2 * Math.PI);
-        ctx.stroke();
-  
-        ctx.globalAlpha = 0.9;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + 0.62 * r, cy - 0.48 * r);
-        ctx.stroke();
-        ctx.restore();
-      }
-  
-      function drawSlider(x, y, w, h, value) {
-        const fg = getForegroundColor();
-  
-        ctx.save();
         ctx.fillStyle = fg;
-        ctx.globalAlpha = 0.10;
-        roundedRectPath(x, y, w, h, Math.min(7, h / 2));
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
         ctx.fill();
         ctx.restore();
   
         ctx.save();
         ctx.strokeStyle = fg;
         ctx.globalAlpha = 0.65;
-        ctx.lineWidth = 1.4;
-        roundedRectPath(x, y, w, h, Math.min(7, h / 2));
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
         ctx.stroke();
   
-        const knobW = Math.max(18, w * 0.15);
-        const knobH = h + 8;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + 0.58 * r, cy - 0.58 * r);
+        ctx.stroke();
+        ctx.restore();
+      }
+  
+      function drawSlider(x, y, w, h, value, fg) {
+        ctx.save();
+        ctx.globalAlpha = 0.12;
+        ctx.fillStyle = fg;
+        roundedRectPath(x, y, w, h, Math.min(6, h / 2));
+        ctx.fill();
+        ctx.restore();
+  
+        ctx.save();
+        ctx.strokeStyle = fg;
+        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = 1.2;
+        roundedRectPath(x, y, w, h, Math.min(6, h / 2));
+        ctx.stroke();
+  
+        const knobW = Math.max(16, w * 0.16);
+        const knobH = h + 6;
         const knobX = x + value * (w - knobW);
-        const knobY = y - 4;
+        const knobY = y - 3;
   
         ctx.globalAlpha = 0.18;
         ctx.fillStyle = fg;
         roundedRectPath(knobX, knobY, knobW, knobH, 6);
         ctx.fill();
   
-        ctx.globalAlpha = 0.85;
+        ctx.globalAlpha = 0.75;
         ctx.strokeStyle = fg;
         roundedRectPath(knobX, knobY, knobW, knobH, 6);
         ctx.stroke();
-  
         ctx.restore();
       }
   
@@ -185,7 +144,6 @@ function makeDjInspiralDeckAnimation({
   
       const r0 = 2.8;
       const r1 = 0.35;
-  
       const u = t.map((v) => v / duration);
       const sep = u.map((v) => r1 + (r0 - r1) * Math.pow(1 - v, 0.55));
   
@@ -194,10 +152,21 @@ function makeDjInspiralDeckAnimation({
   
       const phi = new Array(nframes);
       let phaseSum = 0;
-  
       for (let i = 0; i < nframes; i++) {
         phaseSum += omega[i] * dt;
         phi[i] = phaseSum;
+      }
+  
+      const x1 = new Array(nframes);
+      const y1 = new Array(nframes);
+      const x2 = new Array(nframes);
+      const y2 = new Array(nframes);
+  
+      for (let i = 0; i < nframes; i++) {
+        x1[i] = 0.5 * sep[i] * Math.cos(phi[i]);
+        y1[i] = 0.5 * sep[i] * Math.sin(phi[i]);
+        x2[i] = -x1[i];
+        y2[i] = -y1[i];
       }
   
       let amp = sep.map((s) => r0 / s);
@@ -207,7 +176,6 @@ function makeDjInspiralDeckAnimation({
       const fade = u.map((v) => Math.exp(-Math.pow((v - 0.97) / 0.08, 4)));
   
       let h = new Array(nframes);
-  
       for (let i = 0; i < nframes; i++) {
         h[i] = amp[i] * Math.sin(2 * phi[i]) * fade[i];
       }
@@ -215,100 +183,13 @@ function makeDjInspiralDeckAnimation({
       const maxAbsH = Math.max(...h.map(Math.abs));
       h = h.map((v) => v / maxAbsH);
   
-      function drawMiniGwScreen(x, y, w, h, elapsedSeconds) {
-        const fg = getForegroundColor();
-  
-        ctx.save();
-        ctx.fillStyle = fg;
-        ctx.globalAlpha = 0.10;
-        roundedRectPath(x, y, w, h, 10);
-        ctx.fill();
-        ctx.restore();
-  
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.70;
-        ctx.lineWidth = 1.5;
-        roundedRectPath(x, y, w, h, 10);
-        ctx.stroke();
-        ctx.restore();
-  
-        const pad = 9;
-        const innerX = x + pad;
-        const innerY = y + pad;
-        const innerW = w - 2 * pad;
-        const innerH = h - 2 * pad;
-  
-        ctx.save();
-        roundedRectPath(innerX, innerY, innerW, innerH, 7);
-        ctx.clip();
-  
-        // Subtle analog scan lines.
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.10;
-        ctx.lineWidth = 1;
-  
-        for (let sy = innerY + 3; sy < innerY + innerH; sy += 5) {
-          ctx.beginPath();
-          ctx.moveTo(innerX, sy);
-          ctx.lineTo(innerX + innerW, sy);
-          ctx.stroke();
-        }
-  
-        ctx.restore();
-  
-        // Little moving monitor trace.
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.30;
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-  
-        for (let i = 0; i <= 60; i++) {
-          const px = innerX + (i / 60) * innerW;
-          const local = elapsedSeconds * 2.4 + i * 0.28;
-          const py = innerY + innerH * 0.78 + Math.sin(local) * innerH * 0.05;
-  
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-  
-        ctx.stroke();
-        ctx.restore();
-  
-        ctx.restore();
-  
-        drawText("gw :: inspiral", x + w * 0.08, y + h * 0.14, {
-          size: Math.max(9, h * 0.11),
-          alpha: 0.95
-        });
-        drawText("h(t) :: chirp", x + w * 0.08, y + h * 0.34, {
-          size: Math.max(9, h * 0.11),
-          alpha: 0.95
-        });
-        drawText("strain :: live", x + w * 0.08, y + h * 0.54, {
-          size: Math.max(9, h * 0.11),
-          alpha: 0.95
-        });
-      }
-  
       function drawFrame(frame, elapsedSeconds) {
         const rect = canvas.getBoundingClientRect();
-        const displayW = rect.width;
-        const displayH = rect.height;
-        const dpr = window.devicePixelRatio || 1;
-
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        ctx.clearRect(0, 0, displayW, displayH);
-
-        ctx.save();
-        const scale = displayW / designWidth;
-        ctx.scale(scale, scale);
-
-        const width = designWidth;
-        const height = designHeight;
+        const width = rect.width;
+        const height = rect.height;
         const fg = getForegroundColor();
+  
+        ctx.clearRect(0, 0, width, height);
   
         const pad = Math.max(16, width * 0.025);
   
@@ -317,67 +198,36 @@ function makeDjInspiralDeckAnimation({
         const deckW = width - 2 * pad;
         const deckH = height - 2 * pad;
   
-        // --------------------------------------------------------
         // Deck body
-        // --------------------------------------------------------
-  
         ctx.save();
+        ctx.globalAlpha = 0.06;
         ctx.fillStyle = fg;
-        ctx.globalAlpha = 0.07;
-        roundedRectPath(deckX, deckY, deckW, deckH, 24);
+        roundedRectPath(deckX, deckY, deckW, deckH, 20);
         ctx.fill();
         ctx.restore();
   
         ctx.save();
+        ctx.globalAlpha = 0.55;
         ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.75;
-        ctx.lineWidth = 2.2;
-        roundedRectPath(deckX, deckY, deckW, deckH, 24);
+        ctx.lineWidth = 1.6;
+        roundedRectPath(deckX, deckY, deckW, deckH, 20);
         ctx.stroke();
         ctx.restore();
   
-        // Inner faceplate.
-        ctx.save();
-        ctx.fillStyle = fg;
-        ctx.globalAlpha = 0.03;
-        roundedRectPath(deckX + 10, deckY + 10, deckW - 20, deckH - 20, 18);
-        ctx.fill();
-        ctx.restore();
-  
-        // Cartoon feet.
-        [[0.15, 0.95], [0.85, 0.95]].forEach(([fx, fy]) => {
-          const cx = deckX + deckW * fx;
-          const cy = deckY + deckH * fy;
-  
-          ctx.save();
-          ctx.fillStyle = fg;
-          ctx.globalAlpha = 0.12;
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, 22, 7, 0, 0, 2 * Math.PI);
-          ctx.fill();
-          ctx.restore();
-        });
-  
-        // Corner bolts.
+        // Small corner screws
+        const screwR = 3;
         [
-          [deckX + 20, deckY + 20],
-          [deckX + deckW - 20, deckY + 20],
-          [deckX + 20, deckY + deckH - 20],
-          [deckX + deckW - 20, deckY + deckH - 20]
+          [deckX + 18, deckY + 18],
+          [deckX + deckW - 18, deckY + 18],
+          [deckX + 18, deckY + deckH - 18],
+          [deckX + deckW - 18, deckY + deckH - 18]
         ].forEach(([sx, sy]) => {
-          drawCircle(sx, sy, 3.3, {
-            fillAlpha: 0.10,
-            strokeAlpha: 0.55,
-            lineWidth: 1
-          });
+          drawCircle(sx, sy, screwR, fg, 0.10, 0.5, 1);
         });
   
-        // --------------------------------------------------------
         // Layout
-        // --------------------------------------------------------
-  
         const platterCx = deckX + deckW * 0.34;
-        const platterCy = deckY + deckH * 0.39;
+        const platterCy = deckY + deckH * 0.40;
         const platterR = Math.min(deckW, deckH) * 0.24;
   
         const scopeX = deckX + deckW * 0.10;
@@ -385,131 +235,31 @@ function makeDjInspiralDeckAnimation({
         const scopeW = deckW * 0.80;
         const scopeH = deckH * 0.14;
   
-        const controlsPanelX = deckX + deckW * 0.66;
-        const controlsPanelY = deckY + deckH * 0.14;
-        const controlsPanelW = deckW * 0.22;
-        const controlsPanelH = deckH * 0.34;
-  
-        const miniScreenX = controlsPanelX;
-        const miniScreenY = controlsPanelY + controlsPanelH + deckH * 0.02;
-        const miniScreenW = controlsPanelW;
-        const miniScreenH = deckH * 0.18;
-  
-        // --------------------------------------------------------
-        // Controls panel
-        // --------------------------------------------------------
-  
-        ctx.save();
-        ctx.fillStyle = fg;
-        ctx.globalAlpha = 0.05;
-        roundedRectPath(controlsPanelX, controlsPanelY, controlsPanelW, controlsPanelH, 16);
-        ctx.fill();
-        ctx.restore();
-  
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.60;
-        ctx.lineWidth = 1.5;
-        roundedRectPath(controlsPanelX, controlsPanelY, controlsPanelW, controlsPanelH, 16);
-        ctx.stroke();
-        ctx.restore();
-  
-        const knobY1 = controlsPanelY + controlsPanelH * 0.18;
-        const knobY2 = controlsPanelY + controlsPanelH * 0.58;
-        const knobX1 = controlsPanelX + controlsPanelW * 0.28;
-        const knobX2 = controlsPanelX + controlsPanelW * 0.72;
-        const knobX3 = controlsPanelX + controlsPanelW * 0.50;
-        const smallKnobR = controlsPanelW * 0.11;
-        const largeKnobR = controlsPanelW * 0.14;
-  
-        drawKnob(knobX1, knobY1, smallKnobR);
-        drawKnob(knobX2, knobY1, smallKnobR);
-        drawKnob(knobX3, knobY2, largeKnobR);
-  
-        drawSlider(
-          controlsPanelX + controlsPanelW * 0.12,
-          controlsPanelY + controlsPanelH * 0.82,
-          controlsPanelW * 0.76,
-          controlsPanelH * 0.08,
-          0.62
-        );
-  
-        // Playful tick marks around the big knob.
-        ctx.save();
-        ctx.strokeStyle = getForegroundColor();
-        ctx.globalAlpha = 0.42;
-        ctx.lineWidth = 1;
-  
-        for (let i = -2; i <= 2; i++) {
-          const a = -Math.PI * 0.80 + (i + 2) * (Math.PI * 0.40 / 4);
-          const xA = knobX3 + Math.cos(a) * largeKnobR * 1.55;
-          const yA = knobY2 + Math.sin(a) * largeKnobR * 1.55;
-          const xB = knobX3 + Math.cos(a) * largeKnobR * 1.90;
-          const yB = knobY2 + Math.sin(a) * largeKnobR * 1.90;
-  
-          ctx.beginPath();
-          ctx.moveTo(xA, yA);
-          ctx.lineTo(xB, yB);
-          ctx.stroke();
-        }
-  
-        ctx.restore();
-  
-        drawMiniGwScreen(
-          miniScreenX,
-          miniScreenY,
-          miniScreenW,
-          miniScreenH,
-          elapsedSeconds
-        );
+        const controlsX = deckX + deckW * 0.73;
+        const controlsY = deckY + deckH * 0.18;
   
         // --------------------------------------------------------
         // Vinyl platter
         // --------------------------------------------------------
   
-        drawCircle(platterCx, platterCy, platterR * 1.07, {
-          fillAlpha: 0.04,
-          strokeAlpha: 0.50,
-          lineWidth: 2.0
-        });
-  
-        drawCircle(platterCx, platterCy, platterR * 0.93, {
-          fillAlpha: 0.10,
-          strokeAlpha: 0.75,
-          lineWidth: 1.8
-        });
+        drawCircle(platterCx, platterCy, platterR * 1.08, fg, 0.04, 0.45, 2);
+        drawCircle(platterCx, platterCy, platterR * 0.93, fg, 0.08, 0.65, 1.8);
   
         ctx.save();
         ctx.beginPath();
         ctx.arc(platterCx, platterCy, platterR * 0.92, 0, 2 * Math.PI);
         ctx.clip();
   
-        // Record fill.
+        // Record fill
         ctx.save();
-        ctx.fillStyle = fg;
         ctx.globalAlpha = 0.08;
+        ctx.fillStyle = fg;
         ctx.beginPath();
         ctx.arc(platterCx, platterCy, platterR * 0.92, 0, 2 * Math.PI);
         ctx.fill();
         ctx.restore();
   
-        // Cartoon highlight.
-        ctx.save();
-        ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.20;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.arc(
-          platterCx - platterR * 0.12,
-          platterCy - platterR * 0.08,
-          platterR * 0.58,
-          3.8,
-          5.2
-        );
-        ctx.stroke();
-        ctx.restore();
-  
-        // Grooves.
+        // Grooves
         ctx.save();
         ctx.strokeStyle = fg;
         ctx.globalAlpha = 0.16;
@@ -521,121 +271,78 @@ function makeDjInspiralDeckAnimation({
           ctx.arc(platterCx, platterCy, rr, 0, 2 * Math.PI);
           ctx.stroke();
         }
-  
         ctx.restore();
   
-        // Rotating tick marks for vinyl motion.
+        // Subtle rotating tick lines so the platter feels like it spins
         const spinAngle = elapsedSeconds * 2.2 * Math.PI;
-  
-        // This makes the black-hole masses visibly orbit inside the vinyl,
-        // rather than appearing stuck to the record.
-        const blackHoleOrbitBoost = 2.8;
-  
         ctx.save();
         ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.11;
+        ctx.globalAlpha = 0.10;
         ctx.lineWidth = 1;
   
-        for (let k = 0; k < 18; k++) {
-          const a = spinAngle + (k / 18) * 2 * Math.PI;
+        for (let k = 0; k < 16; k++) {
+          const a = spinAngle + (k / 16) * 2 * Math.PI;
           const rA = platterR * 0.32;
           const rB = platterR * 0.90;
-  
           const xA = platterCx + rA * Math.cos(a);
           const yA = platterCy + rA * Math.sin(a);
           const xB = platterCx + rB * Math.cos(a);
           const yB = platterCy + rB * Math.sin(a);
-  
           ctx.beginPath();
           ctx.moveTo(xA, yA);
           ctx.lineTo(xB, yB);
           ctx.stroke();
         }
-  
         ctx.restore();
   
-        // --------------------------------------------------------
-        // Spinning inspiral inside the vinyl
-        // --------------------------------------------------------
-  
-        const orbitScale = platterR * 0.50;
+        // Inspiral inside the record
+        const scale = platterR * 0.50;
         const j0 = Math.max(0, frame - trailLength);
   
         ctx.save();
         ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.62;
-        ctx.lineWidth = 1.45;
+        ctx.globalAlpha = 0.60;
+        ctx.lineWidth = 1.35;
   
-        // Trail for black hole 1.
         ctx.beginPath();
-  
         for (let j = j0; j <= frame; j++) {
-          const r = 0.5 * sep[j];
-          const a = blackHoleOrbitBoost * phi[j] + spinAngle;
-  
-          const sx = platterCx + r * Math.cos(a) * orbitScale;
-          const sy = platterCy + r * Math.sin(a) * orbitScale;
-  
+          const [rx, ry] = rotatePoint(x1[j], y1[j], spinAngle);
+          const sx = platterCx + rx * scale;
+          const sy = platterCy + ry * scale;
           if (j === j0) ctx.moveTo(sx, sy);
           else ctx.lineTo(sx, sy);
         }
-  
         ctx.stroke();
   
-        // Trail for black hole 2.
         ctx.beginPath();
-  
         for (let j = j0; j <= frame; j++) {
-          const r = 0.5 * sep[j];
-          const a = blackHoleOrbitBoost * phi[j] + spinAngle + Math.PI;
-  
-          const sx = platterCx + r * Math.cos(a) * orbitScale;
-          const sy = platterCy + r * Math.sin(a) * orbitScale;
-  
+          const [rx, ry] = rotatePoint(x2[j], y2[j], spinAngle);
+          const sx = platterCx + rx * scale;
+          const sy = platterCy + ry * scale;
           if (j === j0) ctx.moveTo(sx, sy);
           else ctx.lineTo(sx, sy);
         }
-  
         ctx.stroke();
         ctx.restore();
   
-        // Current black-hole positions.
-        const currentR = 0.5 * sep[frame];
-        const currentA1 = blackHoleOrbitBoost * phi[frame] + spinAngle;
-        const currentA2 = currentA1 + Math.PI;
-  
-        const bh1x = platterCx + currentR * Math.cos(currentA1) * orbitScale;
-        const bh1y = platterCy + currentR * Math.sin(currentA1) * orbitScale;
-
-        const bh2x = platterCx + currentR * Math.cos(currentA2) * orbitScale;
-        const bh2y = platterCy + currentR * Math.sin(currentA2) * orbitScale;
+        const [r1x, r1y] = rotatePoint(x1[frame], y1[frame], spinAngle);
+        const [r2x, r2y] = rotatePoint(x2[frame], y2[frame], spinAngle);
   
         ctx.save();
         ctx.fillStyle = fg;
         ctx.globalAlpha = 1;
-  
         ctx.beginPath();
-        ctx.arc(bh1x, bh1y, platterR * 0.055, 0, 2 * Math.PI);
+        ctx.arc(platterCx + r1x * scale, platterCy + r1y * scale, platterR * 0.055, 0, 2 * Math.PI);
         ctx.fill();
   
         ctx.beginPath();
-        ctx.arc(bh2x, bh2y, platterR * 0.055, 0, 2 * Math.PI);
+        ctx.arc(platterCx + r2x * scale, platterCy + r2y * scale, platterR * 0.055, 0, 2 * Math.PI);
         ctx.fill();
-  
         ctx.restore();
   
-        // Centre label / spindle.
-        drawCircle(platterCx, platterCy, platterR * 0.17, {
-          fillAlpha: 0.16,
-          strokeAlpha: 0.70,
-          lineWidth: 1.4
-        });
-  
-        drawCircle(platterCx, platterCy, platterR * 0.025, {
-          fillAlpha: 0.75,
-          strokeAlpha: 0.75,
-          lineWidth: 1
-        });
+        // Record label / spindle
+        drawCircle(platterCx, platterCy, platterR * 0.17, fg, 0.14, 0.65, 1.4);
+        drawCircle(platterCx, platterCy, platterR * 0.025, fg, 0.7, 0.7, 1);
   
         ctx.restore();
   
@@ -746,20 +453,33 @@ function makeDjInspiralDeckAnimation({
         ctx.restore();
   
         // --------------------------------------------------------
-        // Oscilloscope-style chirp box
+        // Cartoon controls
+        // --------------------------------------------------------
+  
+        drawKnob(controlsX + 26, controlsY + 16, 16, fg);
+        drawKnob(controlsX + 82, controlsY + 16, 16, fg);
+        drawKnob(controlsX + 54, controlsY + 64, 20, fg);
+  
+        drawSlider(controlsX + 4, controlsY + 112, 100, 10, 0.62, fg);
+  
+        // Tiny record-start button
+        drawCircle(controlsX + 20, controlsY + 148, 7, fg, 0.18, 0.7, 1.2);
+  
+        // --------------------------------------------------------
+        // Oscilloscope box with chirp waveform
         // --------------------------------------------------------
   
         ctx.save();
-        ctx.fillStyle = fg;
         ctx.globalAlpha = 0.08;
+        ctx.fillStyle = fg;
         roundedRectPath(scopeX, scopeY, scopeW, scopeH, 14);
         ctx.fill();
         ctx.restore();
   
         ctx.save();
+        ctx.globalAlpha = 0.62;
         ctx.strokeStyle = fg;
-        ctx.globalAlpha = 0.70;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 1.4;
         roundedRectPath(scopeX, scopeY, scopeW, scopeH, 14);
         ctx.stroke();
         ctx.restore();
@@ -771,11 +491,12 @@ function makeDjInspiralDeckAnimation({
         const plotH = scopeH - 2 * innerPad;
         const midY = plotY + plotH / 2;
   
+        // Clip to the scope display
         ctx.save();
         roundedRectPath(plotX, plotY, plotW, plotH, 8);
         ctx.clip();
   
-        // Scope grid.
+        // Scope grid
         ctx.save();
         ctx.strokeStyle = fg;
         ctx.globalAlpha = 0.12;
@@ -796,49 +517,41 @@ function makeDjInspiralDeckAnimation({
           ctx.lineTo(plotX + plotW, y);
           ctx.stroke();
         }
-  
         ctx.restore();
   
-        // Faint full chirp.
+        // Faint full waveform
         ctx.save();
         ctx.strokeStyle = fg;
         ctx.globalAlpha = 0.18;
         ctx.lineWidth = 1;
         ctx.beginPath();
-  
         for (let j = 0; j < nframes; j++) {
           const x = plotX + (j / (nframes - 1)) * plotW;
           const y = midY - h[j] * (plotH * 0.38);
-  
           if (j === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-  
         ctx.stroke();
         ctx.restore();
   
-        // Live trace.
+        // Live trace
         ctx.save();
         ctx.strokeStyle = fg;
         ctx.globalAlpha = 0.95;
         ctx.lineWidth = 2;
         ctx.beginPath();
-  
         for (let j = 0; j <= frame; j++) {
           const x = plotX + (j / (nframes - 1)) * plotW;
           const y = midY - h[j] * (plotH * 0.38);
-  
           if (j === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
-  
         ctx.stroke();
         ctx.restore();
   
-        // Scan dot.
+        // Scan dot
         const dotX = plotX + (frame / (nframes - 1)) * plotW;
         const dotY = midY - h[frame] * (plotH * 0.38);
-  
         ctx.save();
         ctx.fillStyle = fg;
         ctx.globalAlpha = 1;
@@ -847,8 +560,6 @@ function makeDjInspiralDeckAnimation({
         ctx.fill();
         ctx.restore();
   
-        ctx.restore();
-
         ctx.restore();
       }
   
@@ -866,13 +577,7 @@ function makeDjInspiralDeckAnimation({
       }
   
       resizeCanvas();
-
-      if (typeof ResizeObserver !== "undefined") {
-        const resizeObserver = new ResizeObserver(resizeCanvas);
-        resizeObserver.observe(container);
-      } else {
-        window.addEventListener("resize", resizeCanvas);
-      }
+      window.addEventListener("resize", resizeCanvas);
   
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         drawFrame(0, 0);

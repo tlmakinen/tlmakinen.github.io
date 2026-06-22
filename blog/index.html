@@ -25,6 +25,14 @@ pagination:
   </div>
   {% endif %}
 
+  {%- if site.substack_url -%}
+  <div class="text-center my-3">
+    <a href="{{ site.substack_url }}" target="_blank" class="btn btn-sm btn-outline-dark">
+      <i class="fas fa-newspaper"></i> &nbsp;subscribe on substack
+    </a>
+  </div>
+  {%- endif -%}
+
   {% if site.display_tags or site.display_categories %}
   <div class="tag-category-list">
     <ul class="p-0 m-0">
