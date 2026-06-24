@@ -3,8 +3,8 @@ layout: distill
 title: "The Degeneracy Distillery"
 description: What do DJs and scientists have in common?
 giscus_comments: true
-date: 2026-05-20 00:00:00-0000
-published: false
+date: 2026-06-24 00:00:00-0000
+published: true
 featured: true
 tags: code methods AI
 
@@ -14,23 +14,17 @@ authors:
     affiliations:
       name: University of Cambridge
 
-bibliography: 2018-12-22-distill.bib
+# bibliography: 2018-12-22-distill.bib
 
 toc:
   - name: Introduction
-  - name: Hearing Degeneracies
+  - name: Hearing Degeneracy
   - name: Distilling Degeneracies from Data
   - name: Weighing Black Holes
   - name: Closing Thoughts
 
 ---
 
-<!-- <figure class="align-center">
-<p align="center">
-  <img src="" alt="header image" style="width:70%" zoomable=true>
-</p>
-<figcaption align="center"></figcaption>
-</figure> -->
 
 <div class="dj-inspiral-deck">
   <canvas aria-label="Cartoon DJ deck with inspiral platter and chirp waveform"></canvas>
@@ -41,7 +35,7 @@ toc:
 
 <br/>
 <div style="display: block; margin-left: auto; margin-right: auto; width:75%; text-align:center;">
-  <a href="" class="btn btn--primary">read the paper</a>
+  <a href="https://arxiv.org/abs/2606.23838" class="btn btn--primary">read the paper</a>
   <a href="https://github.com/tlmakinen/degeneracy_distillery" class="btn btn--primary">get the code</a>
 </div> <br/>
 
@@ -63,7 +57,6 @@ When models are parameterised by too many switches, they're often called "sloppy
 Despite the difficulties they present, degeneracies can provide insight about the "physics" or intrinsic properties of a system and its data. The *way* in which two or more parameters are degenerate is a label for the "physical" or "natural" coordinates that best control the data. In cosmology, [a famous example is the $$S_8$$ parameter](https://arxiv.org/abs/2602.12238), which captures both how "clumpy" the Universe is, and how much matter it contains.
 
 
-<!-- WANT TO FIND PHYSICAL DIRECTIONS IN DATA -- "WHY SCIENCE WORKS" -->
 
 # A Famous Example
 
@@ -128,11 +121,11 @@ Ideally, we would be able to "wire" these controls together into fewer, more ind
 
 <!-- <br/> -->
 <div style="display: block; margin-left: auto; margin-right: auto; width:75%; text-align:center;">
-  <a href="" class="btn btn--primary">paper link</a>
+  <a href="https://arxiv.org/abs/2606.23838" class="btn btn--primary">paper link</a>
 </div>
  <!-- <br/> -->
 
-With the Degeneracy Distillery, the answer is *yes*. Using just a few snapshots of complicated systems we can distill simple equations that cleanly separate (and sometimes eliminate) interference between switches. We break this down into three steps:
+With the Degeneracy Distillery, the answer is *yes*. Using just a few snapshots of complicated systems we can distill simple equations that cleanly separate (and sometimes eliminate) interference between switches. We break this down into three steps, using only two main input ingredients: pairs of data and parameters, $$\{ (\textbf{x}, \theta) \} $$.
 
 
 <figure class="align-center">
@@ -145,16 +138,15 @@ With the Degeneracy Distillery, the answer is *yes*. Using just a few snapshots 
    </div>
 </figure>
 
-For the illustrations that follow we'll use a classic, difficult statistics problem to illustrate the distillery. The Rosenbrock function maps a "flat" 2D Gaussian mean, $$\eta=(\nu_0,\nu_1)$$, to a degenerate coordinate space $$\theta=(\mu_0,\mu_1)$$:
+For the illustrations that follow we'll use a classic, difficult statistics problem to illustrate the distillery. The Rosenbrock function maps a "flat" 2D Gaussian mean, $$\eta=(\nu_1,\nu_2)$$, to a degenerate coordinate space $$\theta=(\mu_1,\mu_2)$$:
 
 $$
-    \mu_0 = \nu_0, \quad \mu_1 = \nu_1 + \nu_0^2,
+    \mu_1 = \nu_1, \quad \mu_2 = \nu_2 + \nu_1^2,
     \quad \Leftrightarrow \quad
-    \nu_0 = \mu_0, \quad \nu_1 = \mu_1 - \mu_0^2
+    \nu_1 = \mu_1, \quad \nu_2 = \mu_2 - \mu_1^2
 $$
 
 Here the data are noise generated from the means $$\theta$$ with fixed covariance $$\Sigma$$. The data here can be a very long vector: here we draw 50, 2D i.i.d. datapoints per parameter combination, resulting in a 100-dimensional data vector. This toy model is a difficult test problem for probabilistic methods because it yields posteriors $$p(\theta \mid \textbf{x}) $$ that produce deep "U"-shaped valleys that are difficult to sample or "traverse". Our goal will be to uncover this "U" shape and learn the mapping $$\eta(\theta)$$ *from data and $$\theta$$ samples alone*.
-
 
 
 ### Step 1: Grab data and learn information geometry 
