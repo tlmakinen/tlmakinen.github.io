@@ -120,16 +120,23 @@ archivePrefix = {arXiv},
 }
 
 
-@misc{makinen2024hybridsummarystatisticsneural,
-      title={Hybrid summary statistics: neural weak lensing inference beyond the power spectrum}, 
-      author={T. Lucas Makinen and Alan Heavens and Natalia Porqueres and Tom Charnock and Axel Lapel and Benjamin D. Wandelt},
-      year={2024},
-      eprint={2407.18909},
-      archivePrefix={arXiv},
-      primaryClass={astro-ph.CO},
-      url={https://arxiv.org/abs/2407.18909}, 
+
+
+@article{Lucas Makinen_2025,
+      doi = {10.1088/1475-7516/2025/01/095},
+      url = {https://doi.org/10.1088/1475-7516/2025/01/095},
+      year = {2025},
+      month = {jan},
+      publisher = {IOP Publishing},
+      volume = {2025},
+      number = {01},
+      pages = {095},
+      author = {Lucas Makinen, T. and Heavens, Alan and Porqueres, Natalia and Charnock, Tom and Lapel, Axel and Wandelt, Benjamin D.},
+      title = {Hybrid summary statistics: neural weak lensing inference beyond the power spectrum},
+      journal = {Journal of Cosmology and Astroparticle Physics},
       selected = true,
-      preview = {hybrid_wl.png}
+      preview = {hybrid_wl.png},
+      abstract = {Cosmological inference relies on compressed forms of the raw data for analysis, with traditional methods exploiting physics knowledge to define summary statistics, such as power spectra, that are known to capture much of the information.  An alternative approach is to ask a neural network to find a set of informative summary statistics from data, which can then be analysed either by likelihood- or simulation-based inference.  This has the advantage that for non-Gaussian fields, they may capture more information than two-point statistics.  However, a disadvantage is that the network almost certainly relearns that two-point statistics are informative.  In this paper, we introduce a new hybrid method, which combines the best of both: we use our domain knowledge to define informative physics-based summary statistics, and explicitly ask the network to augment the set with extra statistics that capture information that is not already in the existing summaries. This yields a new, general loss formalism that reduces both the number of simulations and network size needed to extract useful non-Gaussian information from cosmological fields, and guarantees that the resulting summary statistics are at least as informative as the power spectrum. In combination, they can then act as powerful inputs to implicit inference of model parameters. We use a generalisation of Information Maximising Neural Networks (IMNNs) to obtain the extra summaries, and obtain parameter constraints from simulated tomographic weak gravitational lensing convergence maps. We study several dark matter simulation resolutions in low- and high-noise regimes. We show that i) the information-update formalism extracts at least 3× and up to 8× as much information as the angular power spectrum in all noise regimes, ii) the network summaries are highly complementary to existing 2-point summaries, and iii) our formalism allows for networks with extremely lightweight architectures to match much larger regression networks with far fewer simulations needed to obtain asymptotically optimal inference.}
 }
 
 
@@ -143,6 +150,28 @@ archivePrefix = {arXiv},
       url={https://arxiv.org/abs/2410.07548}, 
       preview = {hybrid-stats-schematic.jpg}
 
+}
+
+@misc{makinen2026degeneracydistillery,
+      title={The Degeneracy Distillery}, 
+      author={T. Lucas Makinen and Deaglan J. Bartlett and Niall Jeffrey and Benjamin D. Wandelt},
+      year={2026},
+      eprint={2606.23838},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2606.23838},
+      preview = {ellipses_gw.gif}
+}
+
+@misc{williamsonmakinen2026darkenergysurveyyear,
+      title={Dark Energy Survey Year 3 results: optimized $w$CDM simulation-based inference with weak lensing map-level hybrid statistics}, 
+      author={J. Williamson and T. L. Makinen and N. Porqueres and N. Jeffrey and A. Heavens and M. Gatti and B. D. Wandelt and L. Whiteway and J. Prat and A. Alarcon and A. Amon and K. Bechtol and M. R. Becker and G. M. Bernstein and A. Campos and A. Carnero Rosell and R. Chen and A. Choi and J. DeRose and C. Doux and A. Drlica-Wagner and K. Eckert and S. Everett and A. Ferté and Z. Gong and D. Gruen and R. A. Gruendl and K. Herner and M. Jarvis and T. Kacprzak and O. Lahav and J. McCullough and J. Myles and A. Navarro-Alsina and S. Pandey and M. Raveri and R. P. Rollins and E. S. Rykoff and C. Sánchez and L. F. Secco and I. Sevilla-Noarbe and E. Sheldon and T. Shin and A. Thomsen and M. A. Troxel and I. Tutusaus and T. N. Varga and B. Yanny and B. Yin and J. Zuntz and T. M. C. Abbott and M. Aguena and F. Andrade-Oliveira and D. Brooks and R. Camilleri and J. Carretero and R. Cawthon and M. Crocce and L. N. da Costa and T. M. Davis and J. De Vicente and S. Desai and H. T. Diehl and B. Flaugher and J. Frieman and J. García-Bellido and G. Gutierrez and S. R. Hinton and D. L. Hollowood and K. Kuehn and J. L. Marshall and J. Mena-Fernández and R. Miquel and J. J. Mohr and J. Muir and A. A. Plazas Malagón and A. Porredon and A. Roodman and E. Sanchez and D. Sanchez Cid and E. Suchyta and M. E. C. Swanson and C. To and D. L. Tucker and V. Vikram and A. R. Walker and N. Weaverdyck and J. Weller},
+      year={2026},
+      eprint={2606.11309},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.CO},
+      url={https://arxiv.org/abs/2606.11309}, 
+      preview = {desy3_gower.png}
 }
 
 
