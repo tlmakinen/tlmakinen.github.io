@@ -19,7 +19,7 @@ d-byline a, d-article d-byline a {
 
 d-article {
   border-top-color: var(--global-divider-color) !important;
-  p, h1, h2, h3, h4, h5, h6, li, table {
+  p, h1, h2, h3, h4, h5, h6, li, table, .gw-animation, .emc2-animation, .dj-inspiral-deck {
     color: var(--global-text-color) !important;
   }
   h1, h2, hr, table, table th, table td {

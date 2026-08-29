@@ -1,6 +1,6 @@
 ---
-layout: about
-title: music
+layout: page
+title: Music
 permalink: /music/
 nav: true
 # profile:
